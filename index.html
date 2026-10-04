@@ -1,0 +1,4067 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="PlanPro - Smart Event Planning and Resource Coordination Platform"
+    >
+
+    <title>PlanPro | Smart Event Planning Platform</title>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================================
+         LOGIN SCREEN
+         ========================================================= -->
+
+    <div id="loginScreen" class="login-screen">
+
+        <div class="login-background">
+            <div class="login-glow login-glow-one"></div>
+            <div class="login-glow login-glow-two"></div>
+        </div>
+
+        <div class="login-card">
+
+            <div class="login-brand">
+                <div class="brand-mark">
+                    <span>PP</span>
+                </div>
+
+                <div>
+                    <h1>PlanPro</h1>
+                    <p>Smart Event Planning Platform</p>
+                </div>
+            </div>
+
+            <div class="login-heading">
+                
+                <p>Sign in to access your organizer dashboard.</p>
+            </div>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="loginUsername">
+                        Admin Username
+                    </label>
+
+                    <div class="input-with-icon">
+                        <span class="input-icon">👤</span>
+
+                        <input
+                            type="text"
+                            id="loginUsername"
+                            name="username"
+                            placeholder="Enter username"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <div class="input-with-icon">
+                        <span class="input-icon">🔒</span>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            name="password"
+                            placeholder="Enter password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    id="loginError"
+                    class="login-error"
+                    aria-live="polite"
+                ></div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary login-button"
+                >
+                    <span>Login</span>
+                    <span>→</span>
+                </button>
+
+            </form>
+
+            <div class="login-footer">
+                <span>Secure Organizer Access</span>
+                <span>•</span>
+                <span>PlanPro</span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================================
+         MAIN APPLICATION
+         ========================================================= -->
+
+    <div id="appShell" class="app-shell hidden">
+
+        <!-- =====================================================
+             SIDEBAR
+             ===================================================== -->
+
+        <aside id="sidebar" class="sidebar">
+
+            <div class="logo-area">
+
+                <div class="logo-icon">
+                    <span>PP</span>
+                </div>
+
+                <div class="logo-text">
+                    <strong>PlanPro</strong>
+                    <small>Event Management</small>
+                </div>
+
+                <button
+                    id="closeSidebar"
+                    class="sidebar-close"
+                    type="button"
+                    aria-label="Close menu"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- Main Navigation -->
+
+            <nav class="sidebar-nav">
+
+                <div class="nav-label">
+                    MAIN
+                </div>
+
+                <button
+                    class="nav-link active"
+                    data-section="dashboard"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Dashboard</span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="events"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Events</span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="registrations"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Registrations</span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="resources"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Resources</span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="vendors"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Vendors</span>
+                </button>
+
+
+                <div class="nav-label">
+                    FINANCE & WORKFLOW
+                </div>
+
+                <button
+                    class="nav-link"
+                    data-section="budget"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Budget</span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="sponsorship"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Sponsorship</span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="approvals"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Approvals</span>
+                </button>
+
+
+                <div class="nav-label">
+                    MONITORING
+                </div>
+
+                <button
+                    class="nav-link alert-nav-link"
+                    data-section="alerts"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Urgent Alerts</span>
+                    <span
+                        id="sidebarAlertCount"
+                        class="nav-badge"
+                    >
+                        0
+                    </span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="analytics"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Analytics</span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="reports"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>Reports</span>
+                </button>
+
+                <button
+                    class="nav-link"
+                    data-section="testing"
+                    type="button"
+                >
+                    <span class="nav-icon"></span>
+                    <span>System Testing</span>
+                </button>
+
+            </nav>
+
+
+            <!-- Sidebar Bottom -->
+
+            <div class="sidebar-bottom">
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+
+                    <div>
+                        <strong>System Online</strong>
+                        <small>All services operational</small>
+                    </div>
+                </div>
+
+                <button
+                    class="nav-link"
+                    data-section="settings"
+                    type="button"
+                >
+                    <span class="nav-icon">⚙</span>
+                    <span>Settings</span>
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             MAIN CONTENT
+             ===================================================== -->
+
+        <main class="main-content">
+
+            <!-- =================================================
+                 TOPBAR
+                 ================================================= -->
+
+            <header class="topbar">
+
+                <div class="topbar-left">
+
+                    <button
+                        id="mobileMenuBtn"
+                        class="mobile-menu-btn"
+                        type="button"
+                        aria-label="Open menu"
+                    >
+                        ☰
+                    </button>
+
+                    <div class="breadcrumb">
+                        <span>PlanPro</span>
+                        <span>/</span>
+                        <strong id="currentPageTitle">
+                            Dashboard
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="topbar-right">
+
+                    <!-- Alert Bell -->
+
+                    <button
+                        id="topAlertButton"
+                        class="alert-button"
+                        type="button"
+                        aria-label="Open urgent alerts"
+                    >
+                        <span class="bell-icon">🔔</span>
+
+                        <span
+                            id="topAlertCount"
+                            class="top-alert-count"
+                        >
+                            0
+                        </span>
+                    </button>
+
+
+                    <!-- User Profile -->
+
+                    <div class="user-profile">
+
+                        <div class="user-avatar">
+                            A
+                        </div>
+
+                        <div class="user-info">
+                            <strong id="topbarUsername">
+                                Administrator
+                            </strong>
+
+                            <small>
+                                Event Organizer
+                            </small>
+                        </div>
+
+                        <button
+                            id="logoutButton"
+                            class="logout-button"
+                            type="button"
+                            title="Logout"
+                        >
+                            ↪
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 CONTENT AREA
+                 ================================================= -->
+
+            <div class="content-area">
+
+
+                <!-- =================================================
+                     DASHBOARD
+                     ================================================= -->
+
+                <section
+                    id="section-dashboard"
+                    class="content-section active"
+                    data-title="Dashboard"
+                >
+
+                    <div class="welcome-card">
+
+                        <div class="welcome-content">
+                            <span class="welcome-label">
+                                ORGANIZER DASHBOARD
+                            </span>
+
+                            <h1>
+                                PlanPro Prime
+                                
+                            </h1>
+
+                            <p>
+                                Manage events, attendees, resources,
+                                vendors, finances and event operations
+                                from one place.
+                            </p>
+                        </div>
+
+                        <div class="welcome-actions">
+
+                            <button
+                                class="btn btn-primary"
+                                data-open-modal="eventModal"
+                                type="button"
+                            >
+                                + Create Event
+                            </button>
+
+                            <button
+                                class="btn btn-danger"
+                                id="dashboardAlertButton"
+                                type="button"
+                            >
+                                🚨 Send Urgent Alert
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- KPI Cards -->
+
+                    <div class="kpi-grid">
+
+                        <div class="kpi-card">
+
+                            <div class="kpi-icon purple">
+                                📅
+                            </div>
+
+                            <div class="kpi-content">
+                                <span>Total Events</span>
+                                <strong id="kpiTotalEvents">0</strong>
+                                <small>Events managed</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-card">
+
+                            <div class="kpi-icon blue">
+                                👥
+                            </div>
+
+                            <div class="kpi-content">
+                                <span>Total Registrations</span>
+                                <strong id="kpiTotalRegistrations">
+                                    0
+                                </strong>
+                                <small>Registered attendees</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-card">
+
+                            <div class="kpi-icon green">
+                                ✓
+                            </div>
+
+                            <div class="kpi-content">
+                                <span>Checked In</span>
+                                <strong id="kpiCheckedIn">
+                                    0
+                                </strong>
+                                <small>Attendees present</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-card">
+
+                            <div class="kpi-icon cyan">
+                                %
+                            </div>
+
+                            <div class="kpi-content">
+                                <span>Attendance Rate</span>
+                                <strong id="kpiAttendanceRate">
+                                    0%
+                                </strong>
+                                <small>Overall attendance</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-card">
+
+                            <div class="kpi-icon orange">
+                                ₹
+                            </div>
+
+                            <div class="kpi-content">
+                                <span>Total Budget</span>
+                                <strong id="kpiTotalBudget">
+                                    ₹0
+                                </strong>
+                                <small>Planned budget</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-card">
+
+                            <div class="kpi-icon red">
+                                ₹
+                            </div>
+
+                            <div class="kpi-content">
+                                <span>Total Expenses</span>
+                                <strong id="kpiTotalExpenses">
+                                    ₹0
+                                </strong>
+                                <small>Recorded spending</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-card">
+
+                            <div class="kpi-icon gold">
+                                💰
+                            </div>
+
+                            <div class="kpi-content">
+                                <span>Total Sponsorship</span>
+                                <strong id="kpiTotalSponsorship">
+                                    ₹0
+                                </strong>
+                                <small>Financial support</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-card">
+
+                            <div class="kpi-icon violet">
+                                ∑
+                            </div>
+
+                            <div class="kpi-content">
+                                <span>Overall Balance</span>
+                                <strong id="kpiBalance">
+                                    ₹0
+                                </strong>
+                                <small>Budget + sponsorship − expenses</small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Urgent Alert Strip -->
+
+                    <div
+                        id="dashboardUrgentStrip"
+                        class="urgent-strip hidden"
+                    >
+
+                        <div class="urgent-strip-icon">
+                            🚨
+                        </div>
+
+                        <div class="urgent-strip-content">
+                            <strong>Urgent Alert Active</strong>
+                            <span id="dashboardUrgentMessage">
+                                An urgent alert requires attention.
+                            </span>
+                        </div>
+
+                        <button
+                            id="dashboardViewAlert"
+                            class="btn btn-small btn-danger"
+                            type="button"
+                        >
+                            View Alert
+                        </button>
+
+                    </div>
+
+
+                    <!-- Dashboard Grid -->
+
+                    <div class="dashboard-grid">
+
+                        <!-- Upcoming Events -->
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        SCHEDULE
+                                    </span>
+
+                                    <h3>
+                                        Upcoming Events
+                                    </h3>
+                                </div>
+
+                                <button
+                                    class="text-button"
+                                    data-section-link="events"
+                                    type="button"
+                                >
+                                    View All →
+                                </button>
+
+                            </div>
+
+                            <div
+                                id="dashboardEvents"
+                                class="event-list"
+                            >
+                            </div>
+
+                        </div>
+
+
+                        <!-- Resource Status -->
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        OPERATIONS
+                                    </span>
+
+                                    <h3>
+                                        Resource Status
+                                    </h3>
+                                </div>
+
+                                <button
+                                    class="text-button"
+                                    data-section-link="resources"
+                                    type="button"
+                                >
+                                    Manage →
+                                </button>
+
+                            </div>
+
+                            <div
+                                id="dashboardResources"
+                                class="resource-status-list"
+                            >
+                            </div>
+
+                        </div>
+
+
+                        <!-- Financial Overview -->
+
+                        <div class="panel financial-panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        FINANCE
+                                    </span>
+
+                                    <h3>
+                                        Financial Overview
+                                    </h3>
+                                </div>
+
+                                <button
+                                    class="text-button"
+                                    data-section-link="budget"
+                                    type="button"
+                                >
+                                    Details →
+                                </button>
+
+                            </div>
+
+                            <div class="financial-overview">
+
+                                <div class="financial-row">
+                                    <span>Budget</span>
+                                    <strong id="dashboardBudget">
+                                        ₹0
+                                    </strong>
+                                </div>
+
+                                <div class="financial-row">
+                                    <span>Expenses</span>
+                                    <strong id="dashboardExpenses">
+                                        ₹0
+                                    </strong>
+                                </div>
+
+                                <div class="financial-row">
+                                    <span>Sponsorship</span>
+                                    <strong id="dashboardSponsorship">
+                                        ₹0
+                                    </strong>
+                                </div>
+
+                                <div class="financial-progress">
+
+                                    <div class="progress-label">
+                                        <span>Budget Utilization</span>
+                                        <strong id="dashboardBudgetPercent">
+                                            0%
+                                        </strong>
+                                    </div>
+
+                                    <div class="progress-bar">
+                                        <span
+                                            id="dashboardBudgetProgress"
+                                            style="width: 0%"
+                                        ></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Recent Activity -->
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        ACTIVITY
+                                    </span>
+
+                                    <h3>
+                                        Recent Activity
+                                    </h3>
+                                </div>
+
+                            </div>
+
+                            <div
+                                id="dashboardActivity"
+                                class="activity-list"
+                            >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     EVENTS
+                     ================================================= -->
+
+                <section
+                    id="section-events"
+                    class="content-section"
+                    data-title="Events"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                EVENT MANAGEMENT
+                            </span>
+
+                            <h1>Events</h1>
+
+                            <p>
+                                Create, schedule and manage your events,
+                                venues and event information.
+                            </p>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            data-open-modal="eventModal"
+                            type="button"
+                        >
+                            + Create Event
+                        </button>
+
+                    </div>
+
+
+                    <div class="toolbar">
+
+                        <div class="search-box">
+                            <span>⌕</span>
+
+                            <input
+                                type="search"
+                                id="eventSearch"
+                                placeholder="Search events..."
+                            >
+                        </div>
+
+                        <select id="eventStatusFilter">
+                            <option value="all">
+                                All Status
+                            </option>
+                            <option value="upcoming">
+                                Upcoming
+                            </option>
+                            <option value="ongoing">
+                                Ongoing
+                            </option>
+                            <option value="completed">
+                                Completed
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Date</th>
+                                        <th>Venue</th>
+                                        <th>Capacity</th>
+                                        <th>Budget</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="eventsTableBody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     REGISTRATIONS
+                     ================================================= -->
+
+                <section
+                    id="section-registrations"
+                    class="content-section"
+                    data-title="Registrations"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                ATTENDEE MANAGEMENT
+                            </span>
+
+                            <h1>
+                                Registrations & Attendance
+                            </h1>
+
+                            <p>
+                                Manage attendee registrations, tickets
+                                and check-in status.
+                            </p>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            data-open-modal="registrationModal"
+                            type="button"
+                        >
+                            + Register Attendee
+                        </button>
+
+                    </div>
+
+
+                    <div class="resource-summary-grid">
+
+                        <div class="summary-card">
+                            <span>Registrations</span>
+                            <strong id="registrationSummaryTotal">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Checked In</span>
+                            <strong id="registrationSummaryChecked">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Absent</span>
+                            <strong id="registrationSummaryAbsent">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Attendance Rate</span>
+                            <strong id="registrationSummaryRate">
+                                0%
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="toolbar">
+
+                        <div class="search-box">
+                            <span>⌕</span>
+
+                            <input
+                                type="search"
+                                id="registrationSearch"
+                                placeholder="Search attendee..."
+                            >
+                        </div>
+
+                        <select id="registrationEventFilter">
+                            <option value="all">
+                                All Events
+                            </option>
+                        </select>
+
+                        <select id="registrationStatusFilter">
+                            <option value="all">
+                                All Attendance
+                            </option>
+
+                            <option value="registered">
+                                Registered
+                            </option>
+
+                            <option value="checked-in">
+                                Checked In
+                            </option>
+
+                            <option value="absent">
+                                Absent
+                            </option>
+
+                            <option value="cancelled">
+                                Cancelled
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Attendee</th>
+                                        <th>Event</th>
+                                        <th>Ticket ID</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Registered On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="registrationsTableBody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     RESOURCES
+                     ================================================= -->
+
+                <section
+                    id="section-resources"
+                    class="content-section"
+                    data-title="Resources"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                RESOURCE COORDINATION
+                            </span>
+
+                            <h1>
+                                Resources
+                            </h1>
+
+                            <p>
+                                Plan required resources and compare
+                                required quantities with available stock.
+                            </p>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            data-open-modal="resourceModal"
+                            type="button"
+                        >
+                            + Add Resource
+                        </button>
+
+                    </div>
+
+
+                    <div class="resource-summary-grid">
+
+                        <div class="summary-card">
+                            <span>Total Resources</span>
+                            <strong id="resourceTotal">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Sufficient</span>
+                            <strong id="resourceSufficient">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card warning">
+                            <span>Shortage</span>
+                            <strong id="resourceShortage">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Total Available Units</span>
+                            <strong id="resourceAvailable">
+                                0
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Resource</th>
+                                        <th>Event</th>
+                                        <th>Required</th>
+                                        <th>Available</th>
+                                        <th>Shortage / Extra</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="resourcesTableBody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     VENDORS
+                     ================================================= -->
+
+                <section
+                    id="section-vendors"
+                    class="content-section"
+                    data-title="Vendors"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                SERVICE PROVIDERS
+                            </span>
+
+                            <h1>Vendors</h1>
+
+                            <p>
+                                Manage vendors, services, availability
+                                and event assignments.
+                            </p>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            data-open-modal="vendorModal"
+                            type="button"
+                        >
+                            + Add Vendor
+                        </button>
+
+                    </div>
+
+
+                    <div class="vendor-summary">
+
+                        <div class="summary-card">
+                            <span>Total Vendors</span>
+                            <strong id="vendorTotal">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Available</span>
+                            <strong id="vendorAvailable">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Assigned</span>
+                            <strong id="vendorAssigned">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Services</span>
+                            <strong id="vendorServices">
+                                0
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="toolbar">
+
+                        <div class="search-box">
+                            <span>⌕</span>
+
+                            <input
+                                type="search"
+                                id="vendorSearch"
+                                placeholder="Search vendors..."
+                            >
+                        </div>
+
+                        <select id="vendorAvailabilityFilter">
+                            <option value="all">
+                                All Availability
+                            </option>
+
+                            <option value="available">
+                                Available
+                            </option>
+
+                            <option value="assigned">
+                                Assigned
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Vendor</th>
+                                        <th>Service</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Availability</th>
+                                        <th>Assigned Event</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="vendorsTableBody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     BUDGET
+                     ================================================= -->
+
+                <section
+                    id="section-budget"
+                    class="content-section"
+                    data-title="Budget"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                FINANCIAL MANAGEMENT
+                            </span>
+
+                            <h1>Budget & Expenses</h1>
+
+                            <p>
+                                Track planned budgets, expenses,
+                                utilization and remaining balance.
+                            </p>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            data-open-modal="expenseModal"
+                            type="button"
+                        >
+                            + Add Expense
+                        </button>
+
+                    </div>
+
+
+                    <div class="analytics-kpi-grid">
+
+                        <div class="analytics-kpi">
+                            <span>Total Budget</span>
+                            <strong id="budgetPageTotal">
+                                ₹0
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Total Expenses</span>
+                            <strong id="budgetPageExpenses">
+                                ₹0
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Sponsorship</span>
+                            <strong id="budgetPageSponsorship">
+                                ₹0
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Balance</span>
+                            <strong id="budgetPageBalance">
+                                ₹0
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-grid">
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        EXPENSE TRACKING
+                                    </span>
+
+                                    <h3>
+                                        Recent Expenses
+                                    </h3>
+                                </div>
+
+                            </div>
+
+                            <div
+                                id="expensesList"
+                                class="activity-list"
+                            >
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        UTILIZATION
+                                    </span>
+
+                                    <h3>
+                                        Budget Utilization
+                                    </h3>
+                                </div>
+
+                            </div>
+
+                            <div class="financial-overview">
+
+                                <div class="financial-row">
+                                    <span>Budget</span>
+                                    <strong id="budgetChartBudget">
+                                        ₹0
+                                    </strong>
+                                </div>
+
+                                <div class="financial-row">
+                                    <span>Spent</span>
+                                    <strong id="budgetChartSpent">
+                                        ₹0
+                                    </strong>
+                                </div>
+
+                                <div class="financial-progress">
+
+                                    <div class="progress-label">
+                                        <span>Utilization</span>
+
+                                        <strong id="budgetChartPercent">
+                                            0%
+                                        </strong>
+                                    </div>
+
+                                    <div class="progress-bar">
+                                        <span
+                                            id="budgetChartProgress"
+                                            style="width:0%"
+                                        ></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <span class="panel-eyebrow">
+                                    EXPENSE RECORDS
+                                </span>
+
+                                <h3>
+                                    Expense History
+                                </h3>
+                            </div>
+
+                        </div>
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Event</th>
+                                        <th>Category</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="expensesTableBody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     SPONSORSHIP
+                     ================================================= -->
+
+                <section
+                    id="section-sponsorship"
+                    class="content-section"
+                    data-title="Sponsorship"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                FINANCIAL SUPPORT
+                            </span>
+
+                            <h1>Sponsorship</h1>
+
+                            <p>
+                                Record and track financial support
+                                received for events.
+                            </p>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            data-open-modal="sponsorshipModal"
+                            type="button"
+                        >
+                            + Add Sponsorship
+                        </button>
+
+                    </div>
+
+
+                    <div class="analytics-kpi-grid">
+
+                        <div class="analytics-kpi">
+                            <span>Total Sponsorship</span>
+
+                            <strong id="sponsorshipTotal">
+                                ₹0
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Number of Sponsors</span>
+
+                            <strong id="sponsorshipCount">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Average Support</span>
+
+                            <strong id="sponsorshipAverage">
+                                ₹0
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Event</th>
+                                        <th>Sponsor</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="sponsorshipTableBody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     APPROVALS
+                     ================================================= -->
+
+                <section
+                    id="section-approvals"
+                    class="content-section"
+                    data-title="Approvals"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                WORKFLOW
+                            </span>
+
+                            <h1>Approvals</h1>
+
+                            <p>
+                                Review and manage operational approval
+                                requests.
+                            </p>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            data-open-modal="approvalModal"
+                            type="button"
+                        >
+                            + New Approval
+                        </button>
+
+                    </div>
+
+
+                    <div class="approval-summary">
+
+                        <div class="summary-card">
+                            <span>Pending</span>
+                            <strong id="approvalPending">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card success">
+                            <span>Approved</span>
+                            <strong id="approvalApproved">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card danger">
+                            <span>Rejected</span>
+                            <strong id="approvalRejected">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Total</span>
+                            <strong id="approvalTotal">
+                                0
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Request</th>
+                                        <th>Event</th>
+                                        <th>Requested By</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="approvalsTableBody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     URGENT ALERTS
+                     ================================================= -->
+
+                <section
+                    id="section-alerts"
+                    class="content-section"
+                    data-title="Urgent Alerts"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow danger-text">
+                                EMERGENCY COMMUNICATION
+                            </span>
+
+                            <h1>Urgent Alerts</h1>
+
+                            <p>
+                                Send immediate alerts to vendors,
+                                coordinators and event operations teams.
+                            </p>
+                        </div>
+
+                        <button
+                            id="sendUrgentAlertButton"
+                            class="btn btn-danger"
+                            type="button"
+                        >
+                            🚨 Send Urgent Alert
+                        </button>
+
+                    </div>
+
+
+                    <div class="alert-summary-grid">
+
+                        <div class="alert-summary-card">
+
+                            <div class="alert-summary-icon">
+                                🚨
+                            </div>
+
+                            <div>
+                                <span>Total Alerts</span>
+
+                                <strong id="alertTotal">
+                                    0
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="alert-summary-card">
+
+                            <div class="alert-summary-icon">
+                                ⚡
+                            </div>
+
+                            <div>
+                                <span>Active Alerts</span>
+
+                                <strong id="alertActive">
+                                    0
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="alert-summary-card">
+
+                            <div class="alert-summary-icon">
+                                ✓
+                            </div>
+
+                            <div>
+                                <span>Resolved</span>
+
+                                <strong id="alertResolved">
+                                    0
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Alarm Control -->
+
+                    <div class="alarm-control-panel">
+
+                        <div class="alarm-control-content">
+
+                            <div class="alarm-icon">
+                                🔔
+                            </div>
+
+                            <div>
+
+                                <span class="panel-eyebrow">
+                                    ALERT ALARM
+                                </span>
+
+                                <h3>
+                                    Emergency Alarm
+                                </h3>
+
+                                <p>
+                                    When an urgent alert is received,
+                                    PlanPro can display an emergency
+                                    overlay and play an alarm sound.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <label class="toggle-control">
+
+                            <input
+                                type="checkbox"
+                                id="alarmEnabled"
+                                checked
+                            >
+
+                            <span class="toggle-slider"></span>
+
+                            <span>
+                                Alarm Enabled
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Alert History -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <span class="panel-eyebrow">
+                                    ALERT HISTORY
+                                </span>
+
+                                <h3>
+                                    Recent Urgent Alerts
+                                </h3>
+                            </div>
+
+                            <button
+                                id="clearResolvedAlerts"
+                                class="text-button"
+                                type="button"
+                            >
+                                Clear Resolved
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            id="alertsList"
+                            class="alerts-list"
+                        >
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     ANALYTICS
+                     ================================================= -->
+
+                <section
+                    id="section-analytics"
+                    class="content-section"
+                    data-title="Analytics"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                DATA INSIGHTS
+                            </span>
+
+                            <h1>Analytics</h1>
+
+                            <p>
+                                Understand attendance, event performance,
+                                finances and resource status.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="analytics-kpi-grid">
+
+                        <div class="analytics-kpi">
+                            <span>Registration Count</span>
+                            <strong id="analyticsRegistrations">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Attendance Rate</span>
+                            <strong id="analyticsAttendance">
+                                0%
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Expected Attendance</span>
+                            <strong id="analyticsExpected">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Budget Utilization</span>
+                            <strong id="analyticsBudgetUsage">
+                                0%
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Total Expenses</span>
+                            <strong id="analyticsExpenses">
+                                ₹0
+                            </strong>
+                        </div>
+
+                        <div class="analytics-kpi">
+                            <span>Sponsorship</span>
+                            <strong id="analyticsSponsorship">
+                                ₹0
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="analytics-grid">
+
+                        <div class="chart-card">
+
+                            <div class="chart-card-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        ATTENDANCE
+                                    </span>
+
+                                    <h3>
+                                        Attendance Overview
+                                    </h3>
+                                </div>
+
+                            </div>
+
+                            <div class="canvas-container">
+                                <canvas
+                                    id="attendanceChart"
+                                    width="700"
+                                    height="320"
+                                ></canvas>
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-card">
+
+                            <div class="chart-card-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        FINANCE
+                                    </span>
+
+                                    <h3>
+                                        Budget Overview
+                                    </h3>
+                                </div>
+
+                            </div>
+
+                            <div class="canvas-container">
+                                <canvas
+                                    id="budgetChart"
+                                    width="700"
+                                    height="320"
+                                ></canvas>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Event Comparison -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <span class="panel-eyebrow">
+                                    COMPARISON
+                                </span>
+
+                                <h3>
+                                    Event Performance
+                                </h3>
+                            </div>
+
+                        </div>
+
+                        <div class="table-wrapper">
+
+                            <table class="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Registered</th>
+                                        <th>Expected</th>
+                                        <th>Checked In</th>
+                                        <th>Attendance</th>
+                                        <th>Budget</th>
+                                        <th>Expenses</th>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="analyticsEventTableBody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Resource Coordination -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <span class="panel-eyebrow">
+                                    RESOURCE COORDINATION
+                                </span>
+
+                                <h3>
+                                    Resource Requirements
+                                </h3>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="analyticsResourceStatus"
+                            class="resource-status-list"
+                        >
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     REPORTS
+                     ================================================= -->
+
+                <section
+                    id="section-reports"
+                    class="content-section"
+                    data-title="Reports"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                REPORTING
+                            </span>
+
+                            <h1>Reports</h1>
+
+                            <p>
+                                Generate final event summaries and export
+                                platform information as CSV.
+                            </p>
+                        </div>
+
+                        <div class="button-group">
+
+                            <button
+                                id="generateReportButton"
+                                class="btn btn-primary"
+                                type="button"
+                            >
+                                Generate Report
+                            </button>
+
+                            <button
+                                id="exportCsvButton"
+                                class="btn btn-secondary"
+                                type="button"
+                            >
+                                Export CSV
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="report-grid">
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        REPORT OPTIONS
+                                    </span>
+
+                                    <h3>
+                                        Generate Event Report
+                                    </h3>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+
+                                    <label for="reportEventSelect">
+                                        Select Event
+                                    </label>
+
+                                    <select id="reportEventSelect">
+                                        <option value="">
+                                            Select an event
+                                        </option>
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="reportType">
+                                        Report Type
+                                    </label>
+
+                                    <select id="reportType">
+
+                                        <option value="complete">
+                                            Complete Event Report
+                                        </option>
+
+                                        <option value="attendance">
+                                            Attendance Report
+                                        </option>
+
+                                        <option value="financial">
+                                            Financial Report
+                                        </option>
+
+                                        <option value="resources">
+                                            Resource Report
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="report-preview">
+
+                            <div class="report-preview-header">
+
+                                <span>
+                                    REPORT PREVIEW
+                                </span>
+
+                                <span id="reportGeneratedDate">
+                                    Not generated
+                                </span>
+
+                            </div>
+
+                            <div
+                                id="reportPreviewContent"
+                                class="report-preview-content"
+                            >
+
+                                <div class="empty-state">
+                                    <div class="empty-icon">
+                                        📄
+                                    </div>
+
+                                    <h3>
+                                        No Report Generated
+                                    </h3>
+
+                                    <p>
+                                        Select an event and generate
+                                        a report to see the results here.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     SYSTEM TESTING
+                     ================================================= -->
+
+                <section
+                    id="section-testing"
+                    class="content-section"
+                    data-title="System Testing"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                QUALITY CHECK
+                            </span>
+
+                            <h1>System Testing</h1>
+
+                            <p>
+                                Verify validation, calculations and
+                                connected platform functions.
+                            </p>
+                        </div>
+
+                        <button
+                            id="runTestsButton"
+                            class="btn btn-primary"
+                            type="button"
+                        >
+                            Run All Tests
+                        </button>
+
+                    </div>
+
+
+                    <div class="test-summary">
+
+                        <div class="test-summary-card">
+                            <span>Total Tests</span>
+                            <strong id="testTotal">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="test-summary-card success">
+                            <span>Passed</span>
+                            <strong id="testPassed">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="test-summary-card danger">
+                            <span>Failed</span>
+                            <strong id="testFailed">
+                                0
+                            </strong>
+                        </div>
+
+                        <div class="test-summary-card">
+                            <span>Pass Rate</span>
+                            <strong id="testPassRate">
+                                0%
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <span class="panel-eyebrow">
+                                    VALIDATION RESULTS
+                                </span>
+
+                                <h3>
+                                    Test Results
+                                </h3>
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="testingResults"
+                            class="testing-results"
+                        >
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     SETTINGS
+                     ================================================= -->
+
+                <section
+                    id="section-settings"
+                    class="content-section"
+                    data-title="Settings"
+                >
+
+                    <div class="page-section-header">
+
+                        <div>
+                            <span class="page-eyebrow">
+                                PLATFORM SETTINGS
+                            </span>
+
+                            <h1>Settings</h1>
+
+                            <p>
+                                Configure organizer preferences and
+                                platform behavior.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="settings-grid">
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        PROFILE
+                                    </span>
+
+                                    <h3>
+                                        Organizer Profile
+                                    </h3>
+                                </div>
+
+                            </div>
+
+                            <form id="profileSettingsForm">
+
+                                <div class="form-group">
+
+                                    <label for="settingsName">
+                                        Organizer Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="settingsName"
+                                        placeholder="Administrator"
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="settingsEmail">
+                                        Email
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="settingsEmail"
+                                        placeholder="admin@example.com"
+                                    >
+
+                                </div>
+
+
+                                <button
+                                    class="btn btn-primary"
+                                    type="submit"
+                                >
+                                    Save Profile
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        NOTIFICATIONS
+                                    </span>
+
+                                    <h3>
+                                        Notification Preferences
+                                    </h3>
+                                </div>
+
+                            </div>
+
+
+                            <div class="settings-options">
+
+                                <label class="setting-option">
+
+                                    <span>
+                                        <strong>
+                                            Urgent Alerts
+                                        </strong>
+
+                                        <small>
+                                            Receive emergency alert
+                                            notifications.
+                                        </small>
+                                    </span>
+
+                                    <input
+                                        type="checkbox"
+                                        id="settingUrgentAlerts"
+                                        checked
+                                    >
+
+                                </label>
+
+
+                                <label class="setting-option">
+
+                                    <span>
+                                        <strong>
+                                            Automated Reminders
+                                        </strong>
+
+                                        <small>
+                                            Enable reminder notifications
+                                            for upcoming tasks.
+                                        </small>
+                                    </span>
+
+                                    <input
+                                        type="checkbox"
+                                        id="settingReminders"
+                                        checked
+                                    >
+
+                                </label>
+
+
+                                <label class="setting-option">
+
+                                    <span>
+                                        <strong>
+                                            Activity Notifications
+                                        </strong>
+
+                                        <small>
+                                            Show recent platform activity.
+                                        </small>
+                                    </span>
+
+                                    <input
+                                        type="checkbox"
+                                        id="settingActivity"
+                                        checked
+                                    >
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-eyebrow">
+                                        DATA
+                                    </span>
+
+                                    <h3>
+                                        Local Data
+                                    </h3>
+                                </div>
+
+                            </div>
+
+                            <p class="settings-description">
+                                PlanPro stores demo data in your browser's
+                                local storage.
+                            </p>
+
+                            <div class="button-group">
+
+                                <button
+                                    id="seedDemoDataButton"
+                                    class="btn btn-secondary"
+                                    type="button"
+                                >
+                                    Load Demo Data
+                                </button>
+
+                                <button
+                                    id="clearAllDataButton"
+                                    class="btn btn-danger"
+                                    type="button"
+                                >
+                                    Clear All Data
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================================================
+         EVENT MODAL
+         ========================================================= -->
+
+    <div
+        id="eventModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="eventModalTitle"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="modal-eyebrow">
+                        EVENT
+                    </span>
+
+                    <h2 id="eventModalTitle">
+                        Create Event
+                    </h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="eventModal"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="eventForm">
+
+                <input
+                    type="hidden"
+                    id="eventId"
+                >
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+
+                        <label for="eventName">
+                            Event Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="eventName"
+                            required
+                            placeholder="Enter event name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="eventDate">
+                            Event Date *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="eventDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="eventTime">
+                            Start Time *
+                        </label>
+
+                        <input
+                            type="time"
+                            id="eventTime"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="eventVenue">
+                            Venue *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="eventVenue"
+                            required
+                            placeholder="Venue name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="eventCapacity">
+                            Capacity *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="eventCapacity"
+                            min="1"
+                            required
+                            placeholder="100"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="eventBudget">
+                            Budget *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="eventBudget"
+                            min="0"
+                            step="0.01"
+                            required
+                            placeholder="100000"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="eventStatus">
+                            Status
+                        </label>
+
+                        <select id="eventStatus">
+
+                            <option value="upcoming">
+                                Upcoming
+                            </option>
+
+                            <option value="ongoing">
+                                Ongoing
+                            </option>
+
+                            <option value="completed">
+                                Completed
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="eventDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="eventDescription"
+                            rows="3"
+                            placeholder="Event description..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-close-modal="eventModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Event
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         REGISTRATION MODAL
+         ========================================================= -->
+
+    <div
+        id="registrationModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="modal-eyebrow">
+                        ATTENDEE
+                    </span>
+
+                    <h2>
+                        Register Attendee
+                    </h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="registrationModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="registrationForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+
+                        <label for="registrationEvent">
+                            Event *
+                        </label>
+
+                        <select
+                            id="registrationEvent"
+                            required
+                        >
+                            <option value="">
+                                Select event
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="attendeeName">
+                            Full Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="attendeeName"
+                            required
+                            placeholder="Attendee name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="attendeeEmail">
+                            Email *
+                        </label>
+
+                        <input
+                            type="email"
+                            id="attendeeEmail"
+                            required
+                            placeholder="attendee@example.com"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="attendeePhone">
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="attendeePhone"
+                            placeholder="Phone number"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-close-modal="registrationModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Register & Generate Ticket
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         RESOURCE MODAL
+         ========================================================= -->
+
+    <div
+        id="resourceModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="modal-eyebrow">
+                        RESOURCE
+                    </span>
+
+                    <h2>
+                        Add Resource
+                    </h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="resourceModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="resourceForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="resourceName">
+                            Resource Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="resourceName"
+                            required
+                            placeholder="Chairs"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="resourceEvent">
+                            Event *
+                        </label>
+
+                        <select
+                            id="resourceEvent"
+                            required
+                        >
+                            <option value="">
+                                Select event
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="resourceRequired">
+                            Required Quantity *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="resourceRequired"
+                            min="0"
+                            required
+                            placeholder="500"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="resourceAvailable">
+                            Available Quantity *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="resourceAvailable"
+                            min="0"
+                            required
+                            placeholder="450"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="resourceType">
+                            Planning Type
+                        </label>
+
+                        <select id="resourceType">
+
+                            <option value="attendance">
+                                Attendance Based
+                            </option>
+
+                            <option value="manual">
+                                Manual Planning
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-close-modal="resourceModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Resource
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         VENDOR MODAL
+         ========================================================= -->
+
+    <div
+        id="vendorModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="modal-eyebrow">
+                        VENDOR
+                    </span>
+
+                    <h2>
+                        Add Vendor
+                    </h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="vendorModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="vendorForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="vendorName">
+                            Vendor Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="vendorName"
+                            required
+                            placeholder="Vendor or company name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="vendorService">
+                            Service Type *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="vendorService"
+                            required
+                            placeholder="Catering"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="vendorPhone">
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="vendorPhone"
+                            placeholder="Phone number"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="vendorEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="vendorEmail"
+                            placeholder="vendor@example.com"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="vendorAvailability">
+                            Availability
+                        </label>
+
+                        <select id="vendorAvailability">
+
+                            <option value="available">
+                                Available
+                            </option>
+
+                            <option value="assigned">
+                                Assigned
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="vendorEvent">
+                            Assign Event
+                        </label>
+
+                        <select id="vendorEvent">
+
+                            <option value="">
+                                No Event
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-close-modal="vendorModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Vendor
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         EXPENSE MODAL
+         ========================================================= -->
+
+    <div
+        id="expenseModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="modal-eyebrow">
+                        FINANCE
+                    </span>
+
+                    <h2>
+                        Add Expense
+                    </h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="expenseModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="expenseForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="expenseEvent">
+                            Event *
+                        </label>
+
+                        <select
+                            id="expenseEvent"
+                            required
+                        >
+                            <option value="">
+                                Select event
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="expenseCategory">
+                            Category *
+                        </label>
+
+                        <select
+                            id="expenseCategory"
+                            required
+                        >
+
+                            <option value="Venue">
+                                Venue
+                            </option>
+
+                            <option value="Catering">
+                                Catering
+                            </option>
+
+                            <option value="Equipment">
+                                Equipment
+                            </option>
+
+                            <option value="Decoration">
+                                Decoration
+                            </option>
+
+                            <option value="Marketing">
+                                Marketing
+                            </option>
+
+                            <option value="Transportation">
+                                Transportation
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="expenseDescription">
+                            Description *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="expenseDescription"
+                            required
+                            placeholder="Describe the expense"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="expenseAmount">
+                            Amount *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="expenseAmount"
+                            min="0"
+                            step="0.01"
+                            required
+                            placeholder="10000"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="expenseDate">
+                            Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="expenseDate"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-close-modal="expenseModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Expense
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SPONSORSHIP MODAL
+         ========================================================= -->
+
+    <div
+        id="sponsorshipModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="modal-eyebrow">
+                        SPONSORSHIP
+                    </span>
+
+                    <h2>
+                        Add Sponsorship
+                    </h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="sponsorshipModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="sponsorshipForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+
+                        <label for="sponsorEvent">
+                            Event *
+                        </label>
+
+                        <select
+                            id="sponsorEvent"
+                            required
+                        >
+                            <option value="">
+                                Select event
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="sponsorName">
+                            Sponsor *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="sponsorName"
+                            required
+                            placeholder="Sponsor name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="sponsorAmount">
+                            Amount *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="sponsorAmount"
+                            min="0"
+                            step="0.01"
+                            required
+                            placeholder="50000"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="sponsorDate">
+                            Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="sponsorDate"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-close-modal="sponsorshipModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Sponsorship
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         APPROVAL MODAL
+         ========================================================= -->
+
+    <div
+        id="approvalModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="modal-eyebrow">
+                        WORKFLOW
+                    </span>
+
+                    <h2>
+                        New Approval Request
+                    </h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="approvalModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="approvalForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+
+                        <label for="approvalRequest">
+                            Request *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="approvalRequest"
+                            required
+                            placeholder="Example: Catering budget approval"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="approvalEvent">
+                            Event *
+                        </label>
+
+                        <select
+                            id="approvalEvent"
+                            required
+                        >
+                            <option value="">
+                                Select event
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="approvalAmount">
+                            Amount
+                        </label>
+
+                        <input
+                            type="number"
+                            id="approvalAmount"
+                            min="0"
+                            step="0.01"
+                            placeholder="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="approvalRequester">
+                            Requested By
+                        </label>
+
+                        <input
+                            type="text"
+                            id="approvalRequester"
+                            value="Administrator"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-close-modal="approvalModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Submit Request
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         URGENT ALERT SEND MODAL
+         ========================================================= -->
+
+    <div
+        id="urgentAlertModal"
+        class="modal-overlay urgent-modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="urgentAlertModalTitle"
+    >
+
+        <div class="modal urgent-alert-modal">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-eyebrow danger-text">
+                        🚨 EMERGENCY COMMUNICATION
+                    </span>
+
+                    <h2 id="urgentAlertModalTitle">
+                        Send Urgent Alert
+                    </h2>
+
+                </div>
+
+                <button
+                    class="modal-close"
+                    id="closeUrgentAlertModal"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="urgent-warning-box">
+
+                <span class="urgent-warning-icon">
+                    ⚠
+                </span>
+
+                <div>
+
+                    <strong>
+                        Immediate notification
+                    </strong>
+
+                    <p>
+                        This message will be treated as an urgent
+                        operational alert.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="urgentAlertForm">
+
+                <div class="form-group">
+
+                    <label for="alertRecipient">
+                        Send To
+                    </label>
+
+                    <select id="alertRecipient" required>
+
+                        <option value="All Vendors & Coordinators">
+                            All Vendors & Coordinators
+                        </option>
+
+                        <option value="All Event Staff">
+                            All Event Staff
+                        </option>
+
+                        <option value="Vendors Only">
+                            Vendors Only
+                        </option>
+
+                        <option value="Coordinators Only">
+                            Coordinators Only
+                        </option>
+
+                        <option value="Event Organizers">
+                            Event Organizers
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="alertEvent">
+                        Related Event
+                    </label>
+
+                    <select id="alertEvent">
+
+                        <option value="">
+                            General Platform Alert
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="alertMessage">
+                        Urgency Message
+                    </label>
+
+                    <textarea
+                        id="alertMessage"
+                        rows="6"
+                        required
+                        maxlength="500"
+                        placeholder="Enter the urgent message..."
+                    ></textarea>
+
+                    <div class="character-counter">
+                        <span id="alertCharacterCount">
+                            0
+                        </span>
+                        / 500
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="cancelUrgentAlert"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger"
+                    >
+                        🚨 Send Alert
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         URGENT ALERT ALARM OVERLAY
+         ========================================================= -->
+
+    <div
+        id="urgentAlertOverlay"
+        class="urgent-alert-overlay hidden"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="alarmTitle"
+    >
+
+        <div class="alarm-background-pulse"></div>
+
+        <div class="alarm-card">
+
+            <div class="alarm-warning-symbol">
+                <span>⚠</span>
+            </div>
+
+            <div class="alarm-label">
+                EMERGENCY NOTIFICATION
+            </div>
+
+            <h1 id="alarmTitle">
+                URGENT ALERT
+            </h1>
+
+            <div class="alarm-divider"></div>
+
+            <div class="alarm-message-box">
+
+                <p id="alarmMessage">
+                    Urgent message.
+                </p>
+
+            </div>
+
+
+            <div class="alarm-details">
+
+                <div class="alarm-detail">
+
+                    <span>
+                        RECIPIENT
+                    </span>
+
+                    <strong id="alarmRecipient">
+                        All Vendors & Coordinators
+                    </strong>
+
+                </div>
+
+
+                <div class="alarm-detail">
+
+                    <span>
+                        TIME
+                    </span>
+
+                    <strong id="alarmTime">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="turnOffAlarmButton"
+                class="turn-off-alarm-button"
+                type="button"
+            >
+                🔕 Turn Off Alarm
+            </button>
+
+            <p class="alarm-footer">
+                Please acknowledge this alert and take the
+                required action immediately.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         TICKET MODAL
+         ========================================================= -->
+
+    <div
+        id="ticketModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal ticket-modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="modal-eyebrow">
+                        DIGITAL TICKET
+                    </span>
+
+                    <h2>
+                        Registration Ticket
+                    </h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="ticketModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div
+                id="ticketContent"
+                class="ticket-content"
+            >
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    class="btn btn-secondary"
+                    data-close-modal="ticketModal"
+                    type="button"
+                >
+                    Close
+                </button>
+
+                <button
+                    id="printTicketButton"
+                    class="btn btn-primary"
+                    type="button"
+                >
+                    Print Ticket
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         NOTIFICATION PANEL
+         ========================================================= -->
+
+    <div
+        id="notificationPanel"
+        class="notification-panel hidden"
+    >
+
+        <div class="notification-panel-header">
+
+            <div>
+                <strong>
+                    Notifications
+                </strong>
+
+                <small>
+                    Recent platform activity
+                </small>
+            </div>
+
+            <button
+                id="closeNotificationPanel"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="notificationList"
+            class="notification-list"
+        >
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         TOAST CONTAINER
+         ========================================================= -->
+
+    <div
+        id="toastContainer"
+        class="toast-container"
+        aria-live="polite"
+        aria-atomic="true"
+    >
+    </div>
+
+
+    <!-- =========================================================
+         LOADING SCREEN
+         ========================================================= -->
+
+    <div
+        id="loadingOverlay"
+        class="loading-overlay hidden"
+    >
+
+        <div class="loading-spinner"></div>
+
+        <p>
+            Loading PlanPro...
+        </p>
+
+    </div>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+```
